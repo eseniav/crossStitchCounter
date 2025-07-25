@@ -13,6 +13,12 @@ fun crossInDay(cross: Int, date: LocalDate): Int {
     val dayDiff = ChronoUnit.DAYS.between(LocalDate.now(), date) + 1
     return cross / dayDiff.toInt()
 }
+fun printProjInfo(totalQuantity: Int, finishDate: LocalDate, currentQuantity: Int, crossQuantity: Int) {
+    println("Общее количество крестиков: $totalQuantity")
+    println("Планируемая дата завершения: $finishDate")
+    println("Крестики в день: ${crossInDay(currentQuantity, finishDate)}")
+    println("Всего вышито: ${crossQuantity * 100 / totalQuantity}%")
+}
 fun main(args: Array<String>) {
     print("Введите общее количество крестиков: ")
     var totalQuantity: Int? = null
@@ -37,7 +43,6 @@ fun main(args: Array<String>) {
             print("Введены неверные данные. Введите дату: ")
         }
     }
-    println("Общее количество крестиков: $totalQuantity")
-    println("Введена дата: $finishDate")
-    println("Крестики в день: ${crossInDay(currentQuantity, finishDate)}")
+    println("_________________________")
+    printProjInfo(totalQuantity, finishDate, currentQuantity, crossQuantity)
 }
