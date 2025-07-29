@@ -43,7 +43,7 @@ fun fillProgress() {
         println("$k - $v")
     }
 }
-fun main(args: Array<String>) {
+fun addProj() {
     print("Введите общее количество крестиков: ")
     while(totalQuantity == null) {
         totalQuantity = readln().toIntOrNull()
@@ -64,9 +64,10 @@ fun main(args: Array<String>) {
             print("Введены неверные данные. Введите дату: ")
         }
     }
+}
+fun main(args: Array<String>) {
     println("_________________________ ")
     printProjInfo()
-
     progressMap.put(LocalDate.of(2025,7, 23), 888)
     progressMap[LocalDate.of(2025,7, 23)] = 555
     progressMap[LocalDate.of(2025,7, 25)] = 428
