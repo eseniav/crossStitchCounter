@@ -71,11 +71,13 @@ fun fillProjInfo() {
     currentQuantity = totalQuantity!! - crossQuantity!!
     finishDate = LocalDate.of(2025,12, 22)
 }
-fun main(args: Array<String>) {
-    println("_________________________ ")
-    printProjInfo()
+fun fillProgressDiary() {
     progressMap.put(LocalDate.of(2025,7, 23), 888)
     progressMap[LocalDate.of(2025,7, 23)] = 555
     progressMap[LocalDate.of(2025,7, 25)] = 428
+}
+fun main(args: Array<String>) {
+    println("_________________________ ")
+    printProjInfo()
     fillProgress()
 }
