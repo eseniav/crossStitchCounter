@@ -6,6 +6,7 @@ var crossQuantity: Int? = null
 var currentQuantity: Int = 0
 var finishDate: LocalDate? = null
 val progressMap = mutableMapOf(LocalDate.now() to 345, LocalDate.of(2025,7, 22) to 380)
+val printInfo = "Данные успешно добавлены"
 
 fun tryParseDate(str: String): LocalDate? {
     return try {
@@ -25,6 +26,11 @@ fun printProjInfo() {
     println("Крестики в день: ${crossInDay()}")
     println("Всего вышито: ${crossQuantity!! * 100 / totalQuantity!!}%")
 }
+fun printProgressDiary() {
+    for((k, v) in progressMap.toSortedMap().entries) {
+        println("$k - $v")
+    }
+}
 fun fillProgress() {
     print("Введите дату: ")
     var date: LocalDate = tryParseDate(readln()) ?: LocalDate.now()
@@ -36,11 +42,10 @@ fun fillProgress() {
             1 -> progressMap[date] = progressMap[date]!!.plus(crQuan)
             2 -> progressMap[date] = crQuan
         }
+        print("$printInfo")
     } else {
         progressMap[date] = crQuan
-    }
-    for((k, v) in progressMap.toSortedMap().entries) {
-        println("$k - $v")
+        print("$printInfo")
     }
 }
 fun addProj() {
@@ -77,7 +82,10 @@ fun fillProgressDiary() {
     progressMap[LocalDate.of(2025,7, 25)] = 428
 }
 fun main(args: Array<String>) {
+    fillProjInfo()
+    fillProgressDiary()
     println("_________________________ ")
     printProjInfo()
-    fillProgress()
+    println("_________________________ ")
+    printProgressDiary()
 }
