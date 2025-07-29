@@ -65,6 +65,12 @@ fun addProj() {
         }
     }
 }
+fun fillProjInfo() {
+    totalQuantity = 10000
+    crossQuantity = 2000
+    currentQuantity = totalQuantity!! - crossQuantity!!
+    finishDate = LocalDate.of(2025,12, 22)
+}
 fun main(args: Array<String>) {
     println("_________________________ ")
     printProjInfo()
