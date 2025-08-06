@@ -1,5 +1,6 @@
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
+import java.util.UUID
 
 var totalQuantity: Int? = null
 var crossQuantity: Int? = null
@@ -30,6 +31,9 @@ fun printProgressDiary() {
     for((k, v) in progressMap.toSortedMap().entries) {
         println("$k - $v")
     }
+}
+fun printSeparateLine(str: String = "_", quan: Int = 24) {
+    println(str.repeat(quan))
 }
 fun fillProgress() {
     print("Введите дату: ")
@@ -81,11 +85,58 @@ fun fillProgressDiary() {
     progressMap[LocalDate.of(2025,7, 23)] = 555
     progressMap[LocalDate.of(2025,7, 25)] = 428
 }
+enum class ProjectStatus(val title: String) {
+    future("Будущий"),
+    current("Текущий"),
+    finished("Завершенный")
+}
+interface Identifiable {
+    fun getID() = UUID.randomUUID().toString()
+}
+class Project(_user: User): Identifiable {
+    var totalQuantity: Int? = null
+    var crossQuantity: Int = 0
+    var finishDate: LocalDate? = null
+    var endDate: LocalDate? = null
+    var startDate: LocalDate? = null
+    var createDate: LocalDate = LocalDate.now()
+    var projName: String = ""
+    var setManufacturer: String = ""
+    var currentQuantity: Int? = null
+        get() = if(totalQuantity == null) null else totalQuantity!! - crossQuantity
+    val progressMap: MutableMap<LocalDate, Int> = mutableMapOf()
+    var projStatus: ProjectStatus = ProjectStatus.future
+    val projID: String = getID()
+    val user: User = _user
+    var projSpeed: Int = progressMap.values.sum() / progressMap.size
+
+    fun getSpeed(withIdle: Boolean = false): Int {
+        return  if(withIdle)
+            crossQuantity / (ChronoUnit.DAYS.between(LocalDate.now(),startDate).toInt() + 1)
+                else
+            progressMap.values.sum() / progressMap.size
+    }
+}
+class User(): Identifiable {
+    var login: String = ""
+    var password: String = ""
+    var userName: String? = null
+    var userLastName: String? = null
+    val phoneNumber: String = ""
+    val userID: String = getID()
+    val regDate: LocalDate = LocalDate.now()
+}
+class Stats(user: User) {
+    var currentQuanProj = 0
+    var crossQuan = 0
+    var finishedQuanProj = 0
+    var speed = 0
+}
 fun main(args: Array<String>) {
     fillProjInfo()
     fillProgressDiary()
-    println("_________________________ ")
+    printSeparateLine()
     printProjInfo()
-    println("_________________________ ")
+    printSeparateLine()
     printProgressDiary()
 }
