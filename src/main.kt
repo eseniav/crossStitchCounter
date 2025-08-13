@@ -132,6 +132,7 @@ class Stats(user: User) {
     var finishedQuanProj = 0
     var speed = 0
 }
+
 fun main(args: Array<String>) {
     fillProjInfo()
     fillProgressDiary()
