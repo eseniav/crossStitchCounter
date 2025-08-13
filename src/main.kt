@@ -133,6 +133,7 @@ class Stats(user: User) {
 fun main(args: Array<String>) {
     val app = CrossStitchCounter()
     app.greet()
+    app.mainMenu()
 //    fillProjInfo()
 //    fillProgressDiary()
 //    printSeparateLine()
