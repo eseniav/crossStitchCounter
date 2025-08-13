@@ -5,9 +5,10 @@ class Console {
         Blue("\u001b[34m"),
         Purple("\u001b[35m"),
         Yellow("\u001b[33m"),
-        Grey("\u001b[90m")
+        Grey("\u001b[90m"),
+        Reset("\u001b[0m")
     }
     companion object {
-        fun format(str: String, color: Color) = color.code + str
+        fun format(str: String, color: Color) = color.code + str + Color.Reset.code
     }
 }
