@@ -32,9 +32,6 @@ fun printProgressDiary() {
         println("$k - $v")
     }
 }
-fun printSeparateLine(str: String = "_", quan: Int = 24) {
-    println(str.repeat(quan))
-}
 fun fillProgress() {
     print("Введите дату: ")
     var date: LocalDate = tryParseDate(readln()) ?: LocalDate.now()
@@ -132,11 +129,15 @@ class Stats(user: User) {
     var finishedQuanProj = 0
     var speed = 0
 }
+
 fun main(args: Array<String>) {
-    fillProjInfo()
-    fillProgressDiary()
-    printSeparateLine()
-    printProjInfo()
-    printSeparateLine()
-    printProgressDiary()
+    val app = CrossStitchCounter()
+    app.greet()
+    app.mainMenu()
+//    fillProjInfo()
+//    fillProgressDiary()
+//    printSeparateLine()
+//    printProjInfo()
+//    printSeparateLine()
+//    printProgressDiary()
 }
