@@ -5,9 +5,9 @@ class User(): Identifiable {
     var password: String = ""
     var userName: String? = null
     var userLastName: String? = null
-    val phoneNumber: String = ""
-    val email: String = ""
-    val birthDate: LocalDate? = null
+    var phoneNumber: String = ""
+    var email: String = ""
+    var birthDate: LocalDate? = null
     val userID: String = getID()
     val regDate: LocalDate = LocalDate.now()
     companion object {
