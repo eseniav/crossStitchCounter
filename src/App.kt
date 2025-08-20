@@ -11,11 +11,15 @@ abstract class App(private val greeting: Greeting) {
     fun exit() {
         println("Выход")
     }
+    fun logout() {
+        println("Завершить сеанс")
+    }
     fun mainMenu() {
-        println("Выберите действие: 1.Войти, 2.Зарегистрироваться, 0.Выйти")
+        println("Выберите действие: 1.Войти, 2.Зарегистрироваться, 3.Выйти, 0.Завершить работу")
         when(readln()) {
             "1" -> login()
             "2" -> regester()
+            "3" -> logout()
             "0" -> exit()
             else -> {
                 println("Неверный ввод. Выберите один из трех вариантов")
