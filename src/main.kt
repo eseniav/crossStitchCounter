@@ -114,15 +114,7 @@ class Project(_user: User): Identifiable {
             progressMap.values.sum() / progressMap.size
     }
 }
-class User(): Identifiable {
-    var login: String = ""
-    var password: String = ""
-    var userName: String? = null
-    var userLastName: String? = null
-    val phoneNumber: String = ""
-    val userID: String = getID()
-    val regDate: LocalDate = LocalDate.now()
-}
+
 class Stats(user: User) {
     var currentQuanProj = 0
     var crossQuan = 0
