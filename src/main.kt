@@ -126,6 +126,35 @@ fun main(args: Array<String>) {
     val app = CrossStitchCounter()
     app.greet()
     app.mainMenu()
+    println(app.data.users.size)
+    val user = User()
+    user.login = "anna"
+    user.password = "Anna111$"
+    user.userName = "Анна"
+    user.userLastName = "Иванова"
+    user.phoneNumber = "9991119999"
+    user.email = "anna@mail.com"
+    user.birthDate = LocalDate.of(1978, 5, 18)
+    app.data.users.put(user.userID, user)
+    val user1 = User().apply {
+        login ="dima"
+        password = "Dima111$"
+        userName = "Дмитрий"
+        userLastName = "Кузнецов"
+        phoneNumber ="9998881144"
+        email = "dima@mail.com"
+        birthDate = LocalDate.of(1994, 4, 12)
+    }
+    app.data.users[user1.userID] = user1
+    println(app.data.users.size)
+    for ((_, value) in app.data.users) {
+        println(value)
+    }
+    app.data.users.values.forEach { it -> it.print() }
+    val (login, password) = user
+    val user2 = user1.copy(login = "olga")
+    val olga = app.data.users.values.firstOrNull { it.login == "olga" }
+    app.data.users.remove(olga?.userID)
 //    fillProjInfo()
 //    fillProgressDiary()
 //    printSeparateLine()
