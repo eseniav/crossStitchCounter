@@ -3,6 +3,7 @@ import java.time.format.DateTimeFormatter
 import java.util.regex.Pattern
 
 abstract class App(private val greeting: Greeting) {
+    val data: Storage = Storage()
     enum class MessageType(val color: Console.Color) {
         Warning(Console.Color.Yellow),
         Error(Console.Color.Red),
