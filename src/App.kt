@@ -1,8 +1,8 @@
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
-import java.util.regex.Pattern
 
 abstract class App(private val greeting: Greeting) {
+    val data: Storage = Storage()
     enum class MessageType(val color: Console.Color) {
         Warning(Console.Color.Yellow),
         Error(Console.Color.Red),
@@ -76,7 +76,7 @@ abstract class App(private val greeting: Greeting) {
         handleCancel(input)
         if(!Validation.checkMatch(input, pass)) {
             printMessage("Проверьте правильность ввода!", MessageType.Warning)
-            handlePassInput()
+            handleRepPassInput(pass)
         }
         return input
     }
@@ -86,7 +86,7 @@ abstract class App(private val greeting: Greeting) {
         handleCancel(input)
         if(!Validation.checkPhone(input)) {
             printMessage("Проверьте правильность ввода!", MessageType.Warning)
-            handlePassInput()
+            handlePhoneInput()
         }
         return input
     }
@@ -96,30 +96,30 @@ abstract class App(private val greeting: Greeting) {
         handleCancel(input)
         if(!Validation.checkEmail(input)) {
             printMessage("Проверьте правильность ввода!", MessageType.Warning)
-            handlePassInput()
+            handleEmailInput()
         }
         return input
     }
-    fun regester() {
+    fun register() {
         println(Console.format("Регистрация нового пользователя", Console.Color.Blue))
         println("Для отмены регистрации и возврата в главное меню напишите слово \"отмена\"")
-        var userName: String? = null
+        var inputUserName: String? = null
         var lName: String? = null
-        var login: String? = null
-        var password: String? = null
+        var inputLogin: String? = null
+        var inputPassword: String? = null
         var passRep: String? = null
         var bDate: LocalDate? = null
         var phone: String? = null
-        var email: String? = null
+        var inputEmail: String? = null
         try {
-            userName = handleNameInput("Имя")
+            inputUserName = handleNameInput("Имя")
             lName = handleNameInput("Фамилия")
-            login = handleLoginInput()
-            password = handlePassInput()
-            passRep = handleRepPassInput(password)
+            inputLogin = handleLoginInput()
+            inputPassword = handlePassInput()
+            passRep = handleRepPassInput(inputPassword)
             bDate = handleDateInput()
             phone = handlePhoneInput()
-            email = handleEmailInput()
+            inputEmail = handleEmailInput()
         }
         catch (ex: Exception) {
             if(ex.message == "cancel") {
@@ -132,18 +132,21 @@ abstract class App(private val greeting: Greeting) {
         println("Зарегистрироваться? 1.Да, 2.Отменить и выйти в главное меню, 3.Начать регистрацию заново, 0. Завершить работу без сохранения")
         when(readln()) {
             "1" -> {
-                val user = User()
-                user.login = login ?: ""
-                user.password = password ?: ""
-                user.userName = userName ?: ""
-                user.userLastName = lName ?: ""
-                user.phoneNumber = phone.toString()
-                user.email = email ?: ""
-                user.birthDate = bDate
+                val user = User().apply {
+                    login = inputLogin ?: ""
+                    password = inputPassword ?: ""
+                    userName = inputUserName ?: ""
+                    userLastName = lName ?: ""
+                    phoneNumber = phone.toString()
+                    email = inputEmail ?: ""
+                    birthDate = bDate
+                }
+                data.users[user.userID] = user
                 printMessage("Регистрация прошла успешно!", MessageType.Success)
+                println("Добавлен пользователь: ${data.users[user.userID]}")
             }
             "2" -> handleCancel("Отмена")
-            "3" -> regester()
+            "3" -> register()
             "0" -> exit()
             else -> {
                 println("Неверный ввод. Выберите один из трех вариантов")
@@ -161,7 +164,7 @@ abstract class App(private val greeting: Greeting) {
         println("Выберите действие: 1.Войти, 2.Зарегистрироваться, 3.Выйти, 0.Завершить работу")
         when(readln()) {
             "1" -> login()
-            "2" -> regester()
+            "2" -> register()
             "3" -> logout()
             "0" -> exit()
             else -> {

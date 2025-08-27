@@ -1,15 +1,21 @@
 import java.time.LocalDate
 
-class User(): Identifiable {
-    var login: String = ""
-    var password: String = ""
-    var userName: String? = null
-    var userLastName: String? = null
-    var phoneNumber: String = ""
-    var email: String = ""
-    var birthDate: LocalDate? = null
-    val userID: String = getID()
+data class User(
+    var login: String = "",
+    var password: String = "",
+    var userName: String? = null,
+    var userLastName: String? = null,
+    var phoneNumber: String = "",
+    var email: String = "",
+    var birthDate: LocalDate? = null,
     val regDate: LocalDate = LocalDate.now()
+): Identifiable {
+    val userID: String = getID()
+
+     fun print() {
+         println(this)
+     }
+
     companion object {
         val minName = 2
         val maxName = 30
